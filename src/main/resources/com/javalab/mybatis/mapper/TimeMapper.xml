@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 매퍼XML -->
+	<!-- 원래 인터페이스에 있던 쿼리문을 분리해서 여기로 이동 -->
+	
+	<mapper namespace="com.javalab.mybatis.mapper.TimeMapper">
+	
+		<select id="getTime2" resultType="String">
+			select sysdate from dual
+		</select>
+
+	</mapper>	

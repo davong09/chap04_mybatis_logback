@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- contextConfigLocation 파라미터 
+		스프링 루트 컨테이너에 저장될 빈들을 정의하는 파일의 위치를 설정하는 역할을 한다. -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+	</context-param>
+	
+	<!-- ContextLoaderListener 리스너
+		1. 앱이 구동될 때 가장 먼저 동작한다.
+		2. 스프링 루트(부모) 컨테이너를 생성하는 역할을 한다. 
+		3. 이 루트 컨테이너에 있는 스프링 빈들은 자식컨테이너에서 공유할 수 있다. 
+		4. 루트 컨테이너가 생성된 후에 root-context.xml을 읽어서 거기에 정의되어 있는
+		   스프링 빈들을 생성한다. -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- DispatcherServlet 스프링에서 유일한 서브릿
+		1. 자식 컨테이너를 생성하는 역할을 한다.
+		2. 스프링에서 유일하게 웹 요청을 받고 응답할 수 있다.
+		3. 어플리케이션이 구동되는 시점에 만들어지지 않고 웹에서 최초로
+			요청이 들어왔을 때 동작한다.
+		4. 자식 컨테이너에 저장될 빈들에 대한 정의서인 servlet-context.xml을
+		   읽어서 거기에 있는 경로의 빈들을 생성한다. -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>
